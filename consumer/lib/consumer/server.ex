@@ -6,7 +6,7 @@ defmodule Server do
   @me          __MODULE__
   @exchange    "test_exchange"
   @queue       "test_queue"
-  @queue_error "test_queue"
+  @queue_error "#{@queue}_error"
 
   def start_link do
     GenServer.start_link(@me, [], [])
