@@ -1,18 +1,12 @@
 defmodule Producer do
-  @moduledoc """
-  Documentation for Producer.
-  """
+  alias Producer.Bus
 
-  @doc """
-  Hello world.
+  def connect do
+    {:ok, pid} = Bus.start_link
+    pid
+  end
 
-  ## Examples
-
-      iex> Producer.hello
-      :world
-
-  """
-  def hello do
-    :world
+  def publish(bus_pid, message) do
+    GenServer.cast(bus_pid, {:publish, message})
   end
 end
