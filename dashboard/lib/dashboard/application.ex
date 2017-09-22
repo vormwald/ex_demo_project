@@ -10,6 +10,7 @@ defmodule Dashboard.Application do
     children = [
       supervisor(DashboardWeb.Endpoint, []),
 
+      worker(Consumer.Server, [Consumer.Server]),
       worker(Dashboard.Handler, [[name: :message_handler]]),
     ]
 
