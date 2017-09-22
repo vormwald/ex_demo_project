@@ -8,10 +8,9 @@ defmodule Dashboard.Application do
 
     # Define workers and child supervisors to be supervised
     children = [
-      # Start the endpoint when the application starts
       supervisor(DashboardWeb.Endpoint, []),
-      # Start your own worker by calling: Dashboard.Worker.start_link(arg1, arg2, arg3)
-      # worker(Dashboard.Worker, [arg1, arg2, arg3]),
+
+      worker(Dashboard.Handler, [[name: :message_handler]]),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
