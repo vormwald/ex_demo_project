@@ -2,17 +2,18 @@ defmodule Producer.Sender do
   use GenServer
 
   def start_link(message_bus) do
-    GenServer.start_link(__MODULE__, message_bus)
+    GenServer.start_link(__MODULE__, message_bus, [])
   end
 
-  def init(state) do
+  def init(message_bus) do
     schedule_send()
-    {:ok, state}
+    {:ok, message_bus}
   end
 
   def handle_info(:send, message_bus) do
-    IO.puts "sending.."
-    Producer.publish(message_bus, "1")
+    message = "#{Enum.random(1..5)} #{node()}"
+    IO.puts "Sending " <> message
+    Producer.publish(message_bus, message)
 
     schedule_send() # Reschedule once more
     {:noreply, message_bus}
