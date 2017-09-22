@@ -1,4 +1,5 @@
 defmodule Dashboard.Handler do
+  alias DashboardWeb.Endpoint
   use GenServer
 
   def start_link(state) do
@@ -13,7 +14,10 @@ defmodule Dashboard.Handler do
 
   def handle_info({:received, msg}, state) do
     # send over a channel
-    IO.puts msg
+    [data | sender]  = String.split(msg)
+    data = %{body: data, from: sender}
+
+    Endpoint.broadcast!("chart:main", "new_msg", data)
 
     {:noreply, state}
   end
