@@ -19,3 +19,42 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+//
+import Chart from 'chart.js';
+export var App = {
+  run: function(){
+    Greet.greet()
+  }
+}
+var ctx = document.getElementById("myChart");
+var data = {
+  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+  datasets: [{
+    fill: false,
+    label: 'jeff',
+    data: [12, 19, 3, 5, 2, 3],
+    color: 'blue',
+    backgroundColor: [
+      'yellow',
+    ],
+    borderColor: 'blue',
+    borderWidth: 2
+  },
+    {fill: false,
+    label: 'mike',
+    data: [12, 19, 3, 5, 2, 3].reverse(),
+    color: 'red',
+    backgroundColor: [
+      'black'
+    ],
+    borderColor: 'red',
+    borderWidth: 2
+  },
+  ]
+};
+var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    // options: options
+});
+
