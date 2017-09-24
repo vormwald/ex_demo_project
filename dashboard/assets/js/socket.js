@@ -58,9 +58,9 @@ let channel = socket.channel("chart:main", {})
 let messagesContainer = document.querySelector("#messages")
 
 channel.on("new_msg", payload => {
-    let messageItem = document.createElement("li");
-    messageItem.innerText = `[${Date()}] ${payload.body}`
-    messagesContainer.appendChild(messageItem)
+    let event = new CustomEvent('updateChart', { detail: {number: payload.body, from: payload.from }});
+    let chartEl = document.getElementById("myChart");
+    chartEl.dispatchEvent(event)
 })
 
 channel.join()
