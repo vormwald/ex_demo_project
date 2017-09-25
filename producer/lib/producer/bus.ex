@@ -3,12 +3,18 @@ defmodule Producer.Bus do
   use AMQP
 
   def start_link do
-    GenServer.start_link(__MODULE__, [], [])
+    GenServer.start_link(__MODULE__, [], [name: {:global, __MODULE__}])
   end
+
+  def publish(message) do
+    IO.puts "Sending " <> message
+    GenServer.cast({:global, __MODULE__}, {:publish, message})
+  end
+
 
   @exchange    "test_exchange"
   @queue       "test_queue"
-  @queue_error "#{@queue}_error"
+  # @queue_error "#{@queue}_error"
 
   def init(_opts) do
     {:ok, conn} = AMQP.Connection.open("amqp://guest:guest@0.0.0.0")

@@ -1,12 +1,24 @@
 defmodule Producer do
-  alias Producer.Bus
+  use Application
+  require Logger
 
-  def connect do
-    {:ok, pid} = Bus.start_link
-    pid
-  end
+  def start(type, _args) do
+    import Supervisor.Spec
+    children = [
+      worker(Producer.Bus, []),
+      worker(Producer.Sender, []),
+    ]
 
-  def publish(bus_pid, message) do
-    GenServer.cast(bus_pid, {:publish, message})
+    case type do
+      :normal ->
+        Logger.info("Application is started on #{node()}")
+      {:takeover, old_node} ->
+        Logger.info("#{node()} is taking over #{old_node}")
+      {:failover, old_node} ->
+        Logger.info("#{old_node} is failing over to #{node()}")
+    end
+
+    opts = [strategy: :one_for_one, name: {:global, Producer.Supervisor}]
+    Supervisor.start_link(children, opts)
   end
 end

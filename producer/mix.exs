@@ -15,7 +15,8 @@ defmodule Producer.Mixfile do
   def application do
     [
       applications: [:amqp],
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      mod: {Producer, []},
     ]
   end
 
