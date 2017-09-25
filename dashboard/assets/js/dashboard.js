@@ -13,6 +13,7 @@ export default class Dashboard {
 
       let index = this.chart.data.datasets.findIndex((d) => { return node[0].startsWith(d.label) })
       this.chart.data.datasets[index].data.push(number)
+
       this.chart.update();
     }
 
@@ -25,7 +26,7 @@ export default class Dashboard {
           data: [],
           color: 'blue',
           backgroundColor: [
-            'yellow',
+            'blue',
           ],
           borderColor: 'blue',
           borderWidth: 2
@@ -33,16 +34,17 @@ export default class Dashboard {
         {
           fill: false,
           label: 'mike',
-          data: [].reverse(),
+          data: [],
           color: 'red',
           backgroundColor: [
-            'black'
+            'red'
           ],
           borderColor: 'red',
           borderWidth: 2
         },
         ]
       };
+      // TODO set scale from 0 - 6
 
       this.chart = new Chart(this.el, {
         type: 'line',
