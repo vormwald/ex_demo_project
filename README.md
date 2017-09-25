@@ -42,3 +42,17 @@ iex(1)> pid = Producer.connect
 iex(2)> Producer.publish pid, "5"
 ```
 
+
+#### Run it Distributed
+
+```
+mix deps.compile && mix compile
+
+iex --sname mike -pa _build/dev/lib/producer/ebin -pa _build/dev/lib/amqp/ebin
+-pa _build/dev/lib/amqp_client/ebin -pa _build/dev/lib/rabbit_common/ebin --app
+producer --erl "-config config/mike.config" --cookie monster
+
+iex --sname jeff -pa _build/dev/lib/producer/ebin -pa _build/dev/lib/amqp/ebin
+-pa _build/dev/lib/amqp_client/ebin -pa _build/dev/lib/rabbit_common/ebin --app
+producer --erl "-config config/jeff.config" --cookie monster
+```
