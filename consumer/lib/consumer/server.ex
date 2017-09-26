@@ -8,7 +8,7 @@ defmodule Consumer.Server do
   @queue       "test_queue"
   @queue_error "#{@queue}_error"
 
-  def start_link(_state) do
+  def start_link() do
     GenServer.start_link(@me, [], name: :consumer_server)
   end
 

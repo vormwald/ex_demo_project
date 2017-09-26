@@ -2,7 +2,7 @@ defmodule Dashboard.Handler do
   alias DashboardWeb.Endpoint
   use GenServer
 
-  def start_link(state) do
+  def start_link() do
     {:ok, pid} = GenServer.start_link(__MODULE__, [], [])
   end
 

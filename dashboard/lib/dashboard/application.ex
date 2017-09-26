@@ -9,9 +9,8 @@ defmodule Dashboard.Application do
     # Define workers and child supervisors to be supervised
     children = [
       supervisor(DashboardWeb.Endpoint, []),
-
-      worker(Consumer.Server, [Consumer.Server]),
-      worker(Dashboard.Handler, [[name: :message_handler]]),
+      worker(Consumer.Server, []),
+      worker(Dashboard.Handler, []),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

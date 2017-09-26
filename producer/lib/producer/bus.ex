@@ -17,7 +17,7 @@ defmodule Producer.Bus do
   # @queue_error "#{@queue}_error"
 
   def init(_opts) do
-    {:ok, conn} = AMQP.Connection.open("amqp://guest:guest@0.0.0.0")
+    {:ok, conn} = AMQP.Connection.open("amqp://guest:guest@192.168.0.41")
     {:ok, chan} = AMQP.Channel.open(conn)
 
     {:ok, chan}
